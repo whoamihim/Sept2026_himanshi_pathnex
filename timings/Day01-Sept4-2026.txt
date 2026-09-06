@@ -1,0 +1,4 @@
+
+
+today i have done linux commands as such as sed -i, awk, find , umask, learned about absoulte and relateive path,IDP (identity PRovider) ,History , Top , ps , kill , free -h ,
+
