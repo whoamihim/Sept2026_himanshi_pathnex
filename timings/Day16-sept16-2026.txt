@@ -1,0 +1,4 @@
+1 hour - Git: repo fix, branches, PR merge, git pull, fetch --prune
+30 min - Docker basics: image, container, Dockerfile
+30 min - Day 16 coding practice (CloudFormation, Ansible)
+1 hour - Linux revision
