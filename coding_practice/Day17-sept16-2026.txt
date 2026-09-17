@@ -1,7 +1,5 @@
-Day 17 — ASLI HEADING
-🔹 Ansible — ASLI LINE
-Day 17 — ...
-🔹 Ansible — ...
+Day 17 — Multi-Cloud Deployments, Auto-healing, and Advanced CI/CD
+🔹 Ansible — Auto-healing Web Servers with Systemd
 - name: Configure Auto-healing for Web Server
   hosts: all
   become: yes
