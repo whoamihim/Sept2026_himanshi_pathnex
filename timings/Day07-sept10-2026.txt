@@ -1,0 +1,2 @@
+1 hour - Terraform aur Ansible se cloud automation padhi
+30 min - Day 07 coding practice

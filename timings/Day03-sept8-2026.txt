@@ -1,0 +1,2 @@
+1 hour - Ansible, Terraform aur Kubernetes ke basics padhe
+30 min - Day 03 coding practice

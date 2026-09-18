@@ -1,0 +1,2 @@
+1 hour - CloudFormation aur CI/CD se advanced automation padhi
+30 min - Day 13 coding practice

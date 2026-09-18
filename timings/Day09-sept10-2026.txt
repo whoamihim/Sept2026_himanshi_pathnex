@@ -1,0 +1,2 @@
+1 hour - Docker ko Jenkins aur GitLab ke saath integrate karna padha
+30 min - Day 09 coding practice
