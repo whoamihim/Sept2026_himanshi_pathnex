@@ -1,0 +1,2 @@
+30 min - Git: PR #5 merge, branch cleanup, new branch day18
+30 min - Day 18 coding practice
