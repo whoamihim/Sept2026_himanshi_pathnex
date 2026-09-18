@@ -1,0 +1,2 @@
+1 hour - Jenkins aur GitLab se CI/CD ke basic concepts padhe
+30 min - Day 04 coding practice

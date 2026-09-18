@@ -1,0 +1,2 @@
+1 hour - Kubernetes with Helm aur advanced Terraform padhe
+30 min - Day 11 coding practice
