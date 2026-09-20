@@ -1,0 +1,2 @@
+1 hour - Advanced monitoring, logging aur security padhi (Prometheus)
+30 min - Day 19 coding practice
