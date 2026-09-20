@@ -1,0 +1,2 @@
+1 hour - Jenkins pipeline banana seekha
+30 min - Day 05 coding practice

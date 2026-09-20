@@ -1,0 +1,2 @@
+1 hour - Advanced Kubernetes, Jenkins aur GitLab CI padhe
+30 min - Day 10 coding practice

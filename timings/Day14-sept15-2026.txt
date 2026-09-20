@@ -1,0 +1,2 @@
+1 hour - Kubernetes advanced concepts aur multi-environment deployment padhe
+30 min - Day 14 coding practice

@@ -1,0 +1,2 @@
+1 hour - Terraform, Ansible aur CI/CD pipelines se automation padhi
+30 min - Day 15 coding practice
