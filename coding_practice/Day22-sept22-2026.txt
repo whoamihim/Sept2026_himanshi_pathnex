@@ -1,0 +1,183 @@
+Day 22 — Multi-Cluster Kubernetes Management
+
+Anisble - deploy Nginx Across Multiple kubernetes Clusters
+
+#switch to a cluster , deploy. then repeat for the second cluster
+
+ - name: Deploy Nginx across multiple kubernetes clusters
+ hosts: localhost
+ tasks:
+  - name: Configure kubectl for cluster1
+    command: kubectl config use-context us-east-cluster
+
+  - name: Deploy Ngnix on cluster 1
+    command: kubectl apply -f kubernetes/deployment.yaml
+
+  - name: Configure kubectl for cluster2
+    command: kubectl config use-context us-west-cluster
+
+  - name: Deploy Ngnix on cluster2 
+    command: kubectl apply -f kubernetes/deployment.yaml
+
+
+Terraform - multi-region kubernetes cluster with EKS and GKE 
+
+# one cluster on aws (EKS)
+
+ resource "aws_eks_cluster" "himanshi_eks" { 
+    name = "himanshi-eks-cluster" 
+    role_arn = aws_iam_role.eks_cluster_role.arn
+
+
+      vpc_config {      
+        subnet_ids = [aws_subnet.himanshi_subnet.id]            
+          }                
+         
+      depends_on = [aws_iam_role_policy_attachment.eks_cluster_role_policy]
+
+  }
+
+
+
+
+# one cluster on google cloud (GKE)
+
+resource "google_container_cluster" "himanshi_gke" {  
+
+    name                = "himanshi-gke-cluster"
+    location            = "us-central1-a"
+    intial_node_count  = 3
+
+    node_config {       
+
+        machine_type = "n1-standard-1" 
+   
+
+
+        }
+
+      }
+
+
+Kubernetes deployment for one cluster
+
+ #normal deployment for one cluster
+
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+  name: himanshi-deployment
+ spec:
+ replicas: 3
+ selector:
+  matchLabels:
+    app: Himanshi-app
+  template:
+      metadata:
+        labels:
+          app: Himanshi-app
+   spec:
+      containers:
+        - name : nginx
+          image: nginx  
+          ports: 
+            - containerPort: 80
+
+---
+
+#federated deployment: same app, for many clusters
+
+ apiVersion: federation.k8s.io/v1beta1
+ kind: FederatedDeployment
+ metadata:
+
+    name: Himanshi-federated-deployment
+    namespace: default 
+
+  spec:
+    template:
+      spec:
+        replicas: 3
+       selector:
+        matchlabels:
+          app: himanshi-app
+
+        spec:
+          containers:
+          -name: nginx
+            image: nginx
+            ports:
+              - containerPort:80
+
+
+
+Jenkinsfile - MultiCluster Deployment Strategy 
+
+// one stage per cluster
+ 
+ pipeline {
+    
+    agent any 
+
+    stages {
+          stage('Deploy to Cluster 1')  {
+              steps {  
+
+                  script {            
+                        sh 'kubectl --context=us-east-cluster apply -f kubernetes/deployment.yaml' 
+
+                }                       
+             }
+
+           }  
+        }
+  }
+
+
+
+
+Gitlab CI/CD -multi-cluster Deployment Strategy
+
+
+# one stage, two jobs (one per cluster)
+
+stages: 
+ - deploy
+
+ deploy_cluster_1:
+
+    stage: deploy
+    script:
+      - kubectl --context=us-east-cluster apply -f kubernetes/deployment.yaml 
+
+
+ deploy_cluster_2:
+
+
+    stage: deploy
+    script:
+      - kubectlt --context=us-west-cluster apply -f kubernetes/deployment.yaml
+
+
+
+Docker - compose with Mysql
+
+
+#two conatiners :m database + webserver
+
+ version: '3'
+ services: 
+
+  db: 
+    image: mysql:8
+    container_name: himanshi-db 
+    environment:  
+       MYSQL_ROOT_PASSWORD: root
+ 
+
+  web: 
+     image: nginx
+     container_name: him-web
+
+
+

@@ -1,0 +1,2 @@
+1 hour - Wrote Day 22 (multi-cluster Kubernetes) on my own in all 6 tools
+30 min - Learned about kubectl context, EKS vs GKE, federated deployment
