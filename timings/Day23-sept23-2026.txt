@@ -1,0 +1,2 @@
+1 hour - Wrote Day 23 (Serverless and Microservices) on my own: Python Lambda, Ansible, Terraform, Helm, Jenkins, GitLab, Docker
+15 min - Synced main with GitHub, deleted old branches (day19, day21, day22), pushed day23 branch
