@@ -1,0 +1,2 @@
+1 hour - Wrote Day 21 code (Ansible, Terraform, K8s, Jenkins, GitLab, Docker) on my own
+30 min - Reviewed my mistakes: no tabs in YAML, indentation, spelling

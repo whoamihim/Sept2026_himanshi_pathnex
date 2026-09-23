@@ -1,0 +1,182 @@
+Day 21 — Disaster Recovery and Backup Strategies
+🔹 Ansible — Backup and Restore Files
+
+- name: Backup and Restore Files
+ hosts: all
+ become: yes
+ 
+ 
+
+ tasks:
+ - name: create backup of etc directory 
+   command: tar -czvf /tmp/etc-bakcup.tar.gz /etc
+
+ - name: copy backup file 
+  copy:
+   src: /tmp/etc-backup.tar.gz
+   dest: /tmp/etc/-backup.tar.gz
+
+ - name: restore backup
+ command: tar -xzvf /tmp/etc-backup.tar.gz -C /
+
+
+#terraform -s3 backup
+
+resource "aws_s3_bucket" "bkp_dr_bucket" {bucket = "my-devops-bkp-bucket-dr" 
+
+					versioning { 
+				enabled = true }		  }
+ }
+
+
+
+
+resource "aws_s3_bucket" "bkp_dr_bucket" {
+  bucket = "my-devops-bkp-bucket-dr"
+
+  versioning {
+    enabled = true
+  }
+}
+
+
+
+resource "aws_s3_bucket_object" "backup_file" {
+	bucket = aws_s3_bucket.backup_bucket.bucket
+	key = "backup.tar.gz"
+	source = "backup.tar.gz"
+
+}
+
+
+#kubernetes - statefulset + persistent storage
+
+ apiVersion: apps/v1
+ kind:  statefulSet
+
+
+ metadata: 
+ name: backup-StatefulSet 
+
+ spec: 
+ serviceName: "backup-service"
+ replicas: 3
+
+ selector:
+ matchLabels:
+ app: backup-app
+
+
+ template: 
+	metadata:
+		labels:	
+		   app: backup-app 
+
+ spec:
+   conatiners:
+	-name: nginx
+         image: nginx
+	
+
+	volumeMounts:
+		- mountPath: /usr/share/nginx/html
+		 name: web-storage
+
+ volumeClaimTemplates;
+ - metadata:
+   name: web-storage
+  		
+
+   	spec:
+	 accessModes:
+	 - ReadWriteOnce
+
+ 	resources:
+	 requests:
+		storage:5Gi
+
+
+
+
+
+##Jenkinsfile --- workspace bkp & restore
+
+
+pipeline {
+	agent any
+
+
+	stages {	
+		
+
+
+		stage('Backup') {
+			steps{	
+				echo 'backing up jenkins workspace..'
+			
+				sh 'tar -czvf /tmp/jekins-backup.tar.gz ${WORKSPACE}'				}
+
+		}
+
+	stage ('Restore') {
+	     steps { 
+		echo 'Restoring Jenkins Workspace...'
+
+		sh 'tar -xzvf /tmp/jenkins-backup.tar.gz -c ${WORKSPACE}'
+         		}
+		
+
+
+		}
+	
+	}
+
+
+}
+
+
+
+
+
+####GITLAB CI/CD - BKP & RESTORE
+
+stages:
+- backup
+- restore
+
+
+backup:
+	stage: backup 	
+
+
+	script: 
+	- tar -czvf /tmp/backup.tar.gz kubernetes/deployment.yaml
+
+
+restore:
+
+	stage: restore
+			
+	script:
+	- tar -xzvf /tmp/backup.tar.gz -C kubenetes/
+
+
+
+
+
+##docker compose
+
+
+
+services :
+
+
+	web:
+	 image: nginx
+	 container_name: backup-nginx
+
+		
+
+	ports: 
+		
+	- "80:80"				
