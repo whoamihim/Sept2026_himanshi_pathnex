@@ -1,0 +1,2 @@
+1 hour - Wrote Day 24 (Terraform modules, Helm, HPA) on my own in all 5 tools
+30 minutes - Fixed YAML indentation in Kubernetes and pushed to GitHub

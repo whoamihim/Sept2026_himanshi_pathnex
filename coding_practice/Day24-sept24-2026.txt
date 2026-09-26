@@ -1,0 +1,113 @@
+Day 24- Advanced Terraform Modules and CI?CD Pipeline Scaling
+  Ansible - Deploy an App on kubernetes Using Helm
+
+#Install Helm and Deploy my app with it
+
+ - name: Deploy Himanshi app using Helm
+   hosts: localhost
+   tasks:
+    - name: Install Helm 
+      shell: curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+    - name : Deploy Himanshi-app
+      command: helm install himanshi-app ./himanshi-chart
+
+
+
+ Terraform - Two Modules with Output
+
+# Server module uses vpc_id from the network module
+  
+  module "himanshi_network" {
+      source = "./network"
+  }
+
+
+  module "himanshi_server" {
+    source = "./server"
+    vpc_id  = module.himanshi_network.vpc_id
+  }
+
+  output "himanshi_server_id" {
+     value = module.himanshi_server.server_id 
+  }
+
+
+ Kubernetes - Deployment and HPA to scale it on CPU usage 
+
+#Nginx deployment and HPA to scale it on CPU usage 
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata: 
+    name: himanshi-web
+ spec:
+     replicas: 2
+     selector:
+      matchLabels:
+        app: himanshi-web
+     template:
+          metadata:
+            labels:
+              app: himanshi-web
+          spec:
+           containers:
+             - name: himanshi-nginx
+               image: nginx
+               ports:
+                - containerPort: 80
+
+---
+ apiVersion: autoscaling/v1
+ kind: HorizontalPodAutoscaler
+ metadata: 
+    name: himanshi-web-hps
+ spec:
+    scaleTargetRef:
+        apiVersion: apps/v1
+        kind: Deployment
+        name: himanshi-web
+
+
+     minReplicas: 2
+     maxReplicas: 6
+     targetCPUUtilizationPercentage: 70
+
+  Jenkinsfile - Simple Scaling Pipeline
+
+ // Three stages that run one after another
+
+ pipeline {
+     agent any 
+         stages {
+            stage('Add Agents') {
+                steps {
+                     echo 'Adding more agents for big builds'  
+                        } 
+                      }
+             stage('Build') {
+                 steps  {
+                        echo 'Building himanshi app'
+                     }  
+                   }
+              stage('Deploy') {
+                   steps  {
+                        echo 'Deploying himanshi app'
+               
+              }  
+            
+             }     
+          
+          } 
+     
+       }
+
+ Docker - Nginx with Healthcheck 
+
+
+ # Mark container unhealthy if nginx stops respondind 
+
+ FROM nginx:alpine
+ HEALTHCHECK CMD wget -q --spider http://localhost/ || exit 1
+ 
+    
+
