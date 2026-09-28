@@ -1,0 +1,2 @@
+Day 26 — Practice done on 26 Sept 2026
+Added week4/Day26 content (Security Best Practices) in coding_practice/Day26-sept26-2026.txt and fixed heading format with sed
