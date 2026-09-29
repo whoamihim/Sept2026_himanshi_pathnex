@@ -1,0 +1,2 @@
+Day 29 — Practice done on 29 Sept 2026
+Added week4/Day29 content (Final Project Setup and Configuration) in coding_practice/Day29-sept29-2026.txt and removed markdown symbols with sed
