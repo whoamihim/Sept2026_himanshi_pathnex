@@ -1,0 +1,2 @@
+Day 28 — Practice done on 28 Sept 2026
+Added week4/Day28 content (Advanced Networking with VPCs and Peering) in coding_practice/Day28-sept28-2026.txt and removed markdown symbols with sed
