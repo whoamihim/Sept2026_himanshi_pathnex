@@ -1,0 +1,12 @@
+replicaCount: 2
+
+image:
+    repository: pathnex-app
+    tag: v1
+    pullPolicy: Never
+
+
+service:
+    type: NodePort
+    port: 80 
+    nodePort: 30080
