@@ -1,0 +1,2 @@
+Day 30 — Practice done on 30 Sept 2026
+Started week4/Day30 final project in final_project/: built nginx app with Dockerfile, installed minikube, kubectl and Helm, deployed app on Kubernetes with Helm chart (Deployment + Service) and tested self-healing
